@@ -20,6 +20,7 @@ react-native run-android
 ```
 
 23.10.04
+
 App.tsx에서 NavigationContainer를 사용하여 화면들을 묶어줍니다.
 Stack.Navigator로 현재 있는 화면의 제목을 표시하고, Stack.Screen으로 이동할 화면들을 선언해줍니다.
 
