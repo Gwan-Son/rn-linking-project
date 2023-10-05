@@ -1,5 +1,8 @@
 # Linking
 React-Native Call Project
+
+리액트 네이티브로 안드로이드 전화 및 연락처 구현
+
 23.10.04 프로젝트 생성
 
 How to use this Project
