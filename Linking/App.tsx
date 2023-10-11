@@ -10,6 +10,7 @@ import Call from './Screens/Call';
 import Message from './Screens/Message';
 import Contact from './Screens/Contact';
 import ContactDetail from './Screens/Components/ContactDetail';
+import UpdateContact from './Screens/Components/UpdateContact';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,7 @@ export default function App() {
         <Stack.Screen name="Message" component={Message} />
         <Stack.Screen name="Contact" component={Contact} />
         <Stack.Screen name="ContactDetail" component={ContactDetail} />
+        <Stack.Screen name="UpdateContact" component={UpdateContact} />
       </Stack.Navigator>
     </NavigationContainer>
   );
