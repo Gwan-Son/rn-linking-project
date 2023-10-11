@@ -59,8 +59,8 @@ function Call({navigation}: CallProps) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>연락처 가져오기인데 아직 안함</Text>
+        onPress={() => navigation.navigate('Contact')}>
+        <Text style={styles.buttonText}>연락처</Text>
       </TouchableOpacity>
       <CustomAlert
         visible={isAlertVisible}

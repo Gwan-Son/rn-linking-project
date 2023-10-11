@@ -1,9 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import Contacts from 'react-native-contacts';
 import AddContactModal from './Components/AddContact';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useFocusEffect} from '@react-navigation/native';
+import {Image} from 'react-native-reanimated/lib/typescript/Animated';
+
+const windowWidth = Dimensions.get('window').width;
 
 type ContactProps = {
   navigation: any;
@@ -13,9 +23,11 @@ function Contact({navigation}: ContactProps) {
   const [contacts, setContacts] = useState([]);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    loadContacts(); // 연락처 가져오기
-  }, []); // 빈 배열을 전달하여 최초 한 번만 실행되도록 설정
+  useFocusEffect(
+    React.useCallback(() => {
+      loadContacts(); // 연락처 가져오기
+    }, []),
+  );
 
   const loadContacts = () => {
     Contacts.getAll()
@@ -31,8 +43,7 @@ function Contact({navigation}: ContactProps) {
     <TouchableOpacity
       style={styles.contactItem}
       onPress={() => {
-        // 연락처를 클릭할 때의 동작을 여기에 구현
-        // 예: navigation.navigate('ContactDetail', { contact: item });
+        navigation.navigate('ContactDetail', {contact: item});
       }}>
       <Text style={styles.contactName}>{item.givenName}</Text>
       {item.phoneNumbers &&
@@ -59,6 +70,7 @@ function Contact({navigation}: ContactProps) {
         <Text style={styles.buttonText}>연락처 추가</Text>
       </TouchableOpacity>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={contacts}
         renderItem={renderItem}
         keyExtractor={item => item.recordID.toString()}
@@ -95,47 +107,59 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   title: {
+    marginTop: 20,
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 10,
     color: '#333',
   },
   button: {
-    width: 125,
+    width: 200,
     backgroundColor: '#3498db',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
     marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
   contactsContainer: {
     marginTop: 20,
   },
   contactItem: {
     marginBottom: 10,
+    padding: 10,
+    backgroundColor: '#fff',
+    width: windowWidth - 40,
+    borderRadius: 10,
+    elevation: 2, // 그림자 효과 추가
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   contactName: {
-    fontSize: 18,
+    color: '#000',
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 5,
   },
   phoneNumber: {
-    fontSize: 16,
+    color: '#000',
+    fontSize: 20,
   },
   separator: {
     height: 1,
+    width: 320,
     backgroundColor: '#ccc',
     marginBottom: 10,
   },
   flatList: {
     flex: 1,
-    width: '80%',
+    width: '90%',
   },
 });
 
