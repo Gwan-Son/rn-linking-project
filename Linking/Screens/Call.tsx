@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -18,6 +18,19 @@ type CallProps = {
 function Call({navigation}: CallProps) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isAlertVisible, setAlertVisible] = useState(false);
+
+  useEffect(() => {
+    if (phoneNumber.length == 10) {
+      setPhoneNumber(phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+    }
+    if (phoneNumber.length == 13) {
+      setPhoneNumber(
+        phoneNumber
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      );
+    }
+  }, [phoneNumber]);
 
   const phoneNumberRegex = /^[0-9\b -]{0,13}$/; // 10자리 숫자만 허용하는 정규식
 
@@ -50,7 +63,8 @@ function Call({navigation}: CallProps) {
       <Text style={styles.title}>전화</Text>
       <TextInput
         style={styles.textIn}
-        keyboardType="number-pad"
+        keyboardType="phone-pad"
+        value={phoneNumber}
         onChangeText={text => setPhoneNumber(text)}
         placeholder="전화번호를 입력하세요"
       />

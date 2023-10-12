@@ -46,14 +46,9 @@ function UpdateContact({route, navigation}: any) {
       // 이름이나 전화번호가 비어있거나 정규식과 매치되지 않으면
       setAlertVisible1(true); // CustomAlert를 보여줍니다.
     } else {
-      console.log('수정 작업 중');
       var updateToContact = contact;
-      updateToContact.phoneNumbers['number'] = phoneNumber;
+      updateToContact.phoneNumbers[0].number = phoneNumber;
       updateToContact.givenName = name;
-      console.log(phoneNumber);
-      console.log(updateToContact.phoneNumbers['number']);
-      console.log(updateToContact.phoneNumbers.number);
-      //23.10.11 여기 고쳐야함 안돌아가서 죽겠음
       Contacts.updateContact(updateToContact).then(() => {
         setAlertVisible2(true);
       });

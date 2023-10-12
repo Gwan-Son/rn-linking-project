@@ -63,7 +63,6 @@ function ContactDetail({route, navigation}: any) {
       <TouchableOpacity style={styles.button} onPress={makeCall}>
         <Text style={styles.buttonText}>전화걸기</Text>
       </TouchableOpacity>
-      {/* 연락처 수정 버튼 만들어야함 - 23.10.11*/}
       <TouchableOpacity style={styles.button} onPress={handleUpdate}>
         <Text style={styles.buttonText}>연락처 수정</Text>
       </TouchableOpacity>

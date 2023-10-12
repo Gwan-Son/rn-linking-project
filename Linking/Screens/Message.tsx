@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 
 type MessageProps = {
@@ -14,6 +21,11 @@ function Message({navigation}: MessageProps) {
         style={styles.button}
         onPress={() => navigation.navigate('Home')}>
         <Text style={styles.buttonText}>홈으로</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => Linking.openURL(`sms:01000000000`)}>
+        <Text style={styles.buttonText}>문자보내기</Text>
       </TouchableOpacity>
     </View>
   );
