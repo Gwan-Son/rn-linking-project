@@ -6,12 +6,36 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
+  NativeModules,
+  PermissionsAndroid,
 } from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
+
+const {SMSReader} = NativeModules;
 
 type MessageProps = {
   navigation: NavigationProp<ParamListBase>;
 };
+
+// 사용자 권한을 받고 SMS 읽어오기
+async function readSMS() {
+  try {
+    const smsMessages = await SMSReader.readSMS();
+    console.log('SMS Messages: ', smsMessages);
+  } catch (error) {
+    console.error('Error reading SMS: ', error);
+  }
+}
+
+// 권한 요청 및 SMS 읽기 실행
+async function requestAndReadSMS() {
+  try {
+    await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_SMS);
+    readSMS();
+  } catch (error) {
+    console.error('Error requesting SMS permission: ', error);
+  }
+}
 
 function Message({navigation}: MessageProps) {
   return (
